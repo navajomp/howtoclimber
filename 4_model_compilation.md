@@ -12,4 +12,4 @@ make cleanall
 make install climber-clim
 ```
 
-Successfule compilations will end with the message `climber.x is ready.`!\
+Successful compilations will end with the message `climber.x is ready.`!
