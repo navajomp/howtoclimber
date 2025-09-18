@@ -6,7 +6,8 @@ You can use conda if you already have it, replace `mamba` with `conda` in all th
 If you don't have wget, you can install it using:\
 `sudo apt install wget`         (linux)\
 `brew install wget`             (mac)\
-Get mamba
+
+Now get mamba
 ```shell
 wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh -O mambaforge.sh
 bash mambaforge.sh -b -p $HOME/mambaforge
@@ -30,6 +31,7 @@ Activate the environment
 mamba activate climber-env
 ```
 **Verify the installations**\
+\
 Fortran
 ```shell
 gfortran --version
