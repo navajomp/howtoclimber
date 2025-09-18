@@ -1,6 +1,7 @@
 # DEPENDENCIES
 
-**Install utils**\
+**Install `utils`**\
+\
 Compiling the libraries needed for `utils` first.\
 \
 Install `fesm-utils` and go into the directory.
@@ -31,9 +32,11 @@ make clean
 make fesmutils-static openmp=1
 ```
 Adjust your `howtoclimber` path as required.\
+\
 If everything goes well, you will get `include-omp/libfesmutils.a is ready.`\
 \
 **Install `coordinates`**\
+\
 Installing the `coordinates` package.
 ```shell
 git clone https://github.com/fesmc/coordinates.git
@@ -47,3 +50,5 @@ make clean
 make coord-static openmp=1
 ```
 Adjust your `howtoclimber` path as required.\
+\
+If you get `libcoordinates/include/libcoordinates.a is ready.`, the compilation is successful!
