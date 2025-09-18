@@ -55,7 +55,7 @@ ls $CONDA_PREFIX/include | grep netcdf
 ```
 A test program to check if NetCDF is properly installed:
 ```shell
-cd howtoclimber/compilers
+cd howtoclimber
 ./test-nc.sh
 ```
 You should get a PASSED message.\
