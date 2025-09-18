@@ -4,9 +4,10 @@ Install mamba (a faster solver alternative to conda).\
 You can use conda if you already have it, replace `mamba` with `conda` in all the commands.
 
 If you don't have wget, you can install it using:\
+\
 `sudo apt install wget`         (linux)\
 `brew install wget`             (mac)\
-
+\
 Now get mamba
 ```shell
 wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh -O mambaforge.sh
