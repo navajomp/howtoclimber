@@ -25,11 +25,18 @@ mamba --version
 ---
 Create a new environment for our model jobs
 ```shell
-mamba create -n climberx-env gfortran netcdf-c netcdf-fortran -c conda-forge
+platform="$(uname)-$(uname -m)"
+# copy and past the whole block of code below
+if [[ "$platform" == "Darwin-arm64" ]]; then
+    CONDA_SUBDIR=osx-arm64 mamba create -n climberx-env gfortran libnetcdf=4.9 netcdf-fortran=4.6 -c conda-forge
+else
+    mamba create -n climberx-env gfortran netcdf-c=4.9 netcdf-fortran=4.6 -c conda-forge
+fi
+
 ```
 Activate the environment
 ```shell
-mamba activate climber-env
+mamba activate climberx-env
 ```
 Alway make sure you activate the environment before you use the `climber-x-lite` model from now on.\ 
 **Verify the installations**\
