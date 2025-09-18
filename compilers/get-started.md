@@ -55,3 +55,9 @@ Headers
 ```shell
 ls $CONDA_PREFIX/include | grep netcdf
 ```
+
+A test program to check if NetCDF is properly installed.\
+```shell
+cd howtoclimber/compilers
+./test-nc.sh
+```
