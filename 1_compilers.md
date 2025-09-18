@@ -26,7 +26,7 @@ mamba --version
 Create a new environment for our model jobs
 ```shell
 platform="$(uname)-$(uname -m)"
-# copy and past the whole block of code below
+# copy and paste the whole block of code below
 if [[ "$platform" == "Darwin-arm64" ]]; then
     CONDA_SUBDIR=osx-arm64 mamba create -n climberx-env gfortran libnetcdf=4.9 netcdf-fortran=4.6 -c conda-forge
 else
