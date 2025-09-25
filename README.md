@@ -42,7 +42,7 @@ sudo apt install -y gfortran build-essential
 # Install NetCDF (C + Fortran)
 sudo apt install -y libnetcdf-dev libnetcdff-dev
 ```
-**Verify the installations**\
+**Verify the installations**
 \
 ```shell
 # Fortran
@@ -66,6 +66,7 @@ cd howtoclimber
 ```
 You should get a PASSED message.\
 \
-Done!
+---
+
 
 
