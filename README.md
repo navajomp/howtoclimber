@@ -12,7 +12,7 @@ cd ~
 https://github.com/navajomp/howtoclimber.git
 ```
 
-Make not of the location of the `howtoclimber` directory.
+Make note of the location of the `howtoclimber` directory.
 
 **INSTALLING COMPILERS**
 
