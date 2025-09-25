@@ -1,21 +1,33 @@
-### Compiler #####################
-FC = $(CONDA_PREFIX)/bin/gfortran
+# Detect operating system
+UNAME_S := $(shell uname -s)
 
-### Library locations ############
-NC_CROOT=$(CONDA_PREFIX)
-NC_FROOT=$(CONDA_PREFIX)
-INC_NC  = -I$(NC_FROOT)/include
-LIB_NC  = -L$(NC_FROOT)/lib -lnetcdff -L$(NC_CROOT)/lib -lnetcdf
+ifeq ($(UNAME_S),Darwin)
+    # macOS configuration
+    ### Compiler #####################
+    FC = gfortran-15
 
-### Debug / optimization flags ###
+    ### Library locations ############
+    NC_CROOT = /opt/homebrew/opt/netcdf
+    NC_FROOT = /opt/homebrew/opt/netcdf-fortran
+    INC_NC  = -I$(NC_FROOT)/include -I$(NC_CROOT)/include
+    LIB_NC  = -L$(NC_FROOT)/lib -lnetcdff -L$(NC_CROOT)/lib -lnetcdf
+else
+    # Linux configuration
+    ### Compiler #####################
+    FC = gfortran
+
+    ### Library locations ############
+    NC_CROOT = /usr
+    NC_FROOT = /usr
+    INC_NC  = -I$(NC_FROOT)/include
+    LIB_NC  = -L$(NC_FROOT)/lib -lnetcdff -L$(NC_CROOT)/lib -lnetcdf
+endif
+
 DFLAGS_NODEBUG = -O3
 DFLAGS_DEBUG   = -w -g -p -ggdb -ffpe-trap=invalid,zero,overflow,underflow -fbacktrace -fcheck=all
 DFLAGS_PROFILE = -pg
 
-### Fortran flags ################
 FFLAGS_DEFAULT = -ffree-line-length-none -fbackslash -I$(objdir) -J$(objdir) $(INC_NC)
 FFLAGS_OPENMP  = $(FFLAGS_DEFAULT) -fopenmp
 
-### Linking flags ################
 LFLAGS  = $(LIB_NC)
-

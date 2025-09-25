@@ -120,8 +120,8 @@ If you see 4 different paths listed in the end, the libraries are compiled!\
 On to compiling `utils`
 ```
 cd utils
-cp howtoclimber/config1.sh config/config1.sh
-python3 config.py config/config1.sh
+cp howtoclimber/config1 config/myconfig
+python3 config.py config/myconfig
 make clean
 make fesmutils-static openmp=1
 ```
