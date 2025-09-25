@@ -160,3 +160,23 @@ If you get `libcoordinates/include/libcoordinates.a is ready.`, the compilation 
 
 ## Compile `climber-x-lite`
 
+**MODEL COMPILATION**
+
+Get back to the model directory, and copy the configuration file.
+```shell
+# Go back to the model directory
+cd ../../..
+
+# Copy the makefile
+cp howtoclimber/config3 config/myconfig
+```
+Final step!
+```shell
+# make and compile
+python3 config.py config/myconfig 
+make cleanall
+make install climber-clim
+```
+
+Successful compilations will end with the message `climber.x is ready.`!
+
