@@ -141,6 +141,10 @@ If everything goes well, you will get `include-omp/libfesmutils.a is ready.`\
 \
 Installing the `coordinates` package.
 ```shell
+# go back to the src/utils directory
+cd../..
+
+# obtain the library
 git clone https://github.com/fesmc/coordinates.git
 cd coordinates
 
@@ -167,8 +171,9 @@ Get back to the model directory, and copy the configuration file.
 # Go back to the model directory
 cd ../../..
 
-# Copy the makefile
+# Copy the makefile and make
 cp howtoclimber/config3 config/myconfig
+python3 config.py config/myconfig 
 ```
 
 Adjust your `howtoclimber` path as required.\
@@ -177,14 +182,16 @@ Before compiling the model, a few files need to replaced (because of older Fortr
 \
 Replace the follwing files in your model source directory by copying the modified files from `howtoclimber`.
 ```shell
-cp 
+cp howtoclimber/ocn_out.f90 src/ocn/ocn_out.f90
+cp howtoclimber/sic_out.f90 src/sic/sic_out.f90
+cp howtoclimber/lnd_params.f90 src/lnd/lnd_params.f90
+cp howtoclimber/Makefile_climber.mk config/Makefile_climber.mk
 ```
 Final step!
 ```shell
-# make and compile
-python3 config.py config/myconfig 
+# compile 
 make cleanall
-make install climber-clim
+make climber-clim
 ```
 
 Successful compilations will end with the message `climber.x is ready.`!
