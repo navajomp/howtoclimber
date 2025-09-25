@@ -145,10 +145,10 @@ git clone https://github.com/fesmc/coordinates.git
 cd coordinates
 
 # Copy the configuration file.
-cp howtoclimber/config2.sh config/config2.sh
+cp howtoclimber/config2 config/myconfig
 
 # make and compile
-python3 config.py config/config2.sh
+python3 config.py config/myconfig
 make clean
 make coord-static openmp=1
 ```
