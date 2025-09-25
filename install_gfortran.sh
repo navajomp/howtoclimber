@@ -1,90 +1,66 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
+# Make sure we stop on errors
 set -e
 
-# ==================================================
-#  Climate Model Library Installer (gfortran)
-# ==================================================
-
-# Check that Conda environment is active
-if [[ -z "$CONDA_PREFIX" ]]; then
-    echo "Please activate your Conda environment first:"
-    echo "   mamba activate climberx-env"
+# Set compiler options
+if [[ $1 = "ifx" ]]; then
+    COMPILER_OPTS="CC=icx F77=ifx 'FFLAGS=-Ofast -march=core-avx2 -mtune=core-avx2 -traceback' 'CFLAGS=-Ofast -march=core-avx2 -mtune=core-avx2 -traceback'"
+elif [[ $1 = "ifort" ]]; then
+    COMPILER_OPTS="CC=icc F77=ifort 'FFLAGS=-Ofast -march=core-avx2 -mtune=core-avx2 -traceback' 'CFLAGS=-Ofast -march=core-avx2 -mtune=core-avx2 -traceback'"
+elif [[ $1 = "gfortran" ]]; then
+    COMPILER_OPTS="CC=gcc-15 CXX=g++-15 FC=gfortran-15 F77=gfortran-15"
+else
+    echo "Compiler not recognized: $1"
     exit 1
 fi
 
-# =========================
-#  Compiler setup
-# =========================
-echo "Setting up compiler environment..."
-export F77=$CONDA_PREFIX/bin/gfortran
-export CC=$CONDA_PREFIX/bin/gcc
-
-FFLAGS="-O2 -g"
-CFLAGS="-O2 -g"
-
-arch=$(uname -m)
-if [[ "$arch" == "x86_64" ]]; then
-    FFLAGS="$FFLAGS -march=native -mtune=native"
-    CFLAGS="$CFLAGS -march=native -mtune=native"
-fi
-
-# =========================
-#  NetCDF setup
-# =========================
-export NETCDF_C=$CONDA_PREFIX
-export NETCDF_F=$CONDA_PREFIX
-
-export CFLAGS="$CFLAGS -I$NETCDF_C/include"
-export FFLAGS="$FFLAGS -I$NETCDF_F/include"
-export LDFLAGS="-L$NETCDF_C/lib -lnetcdf -L$NETCDF_F/lib -lnetcdff"
-
-echo "Compiler and NetCDF environment configured:"
-echo "   F77 = $F77"
-echo "   CC  = $CC"
-echo "   NETCDF prefix = $CONDA_PREFIX"
+echo "COMPILER_OPTS = $COMPILER_OPTS"
 echo ""
 
-# =========================
-#  FFTW build
-# =========================
+### FFTW ###
+
 SRCDIR=$PWD
 FFTWSRC=fftw-3.3.10
 
-for BUILD in "fftw-omp --enable-openmp" "fftw-serial"; do
-    TARGET=$(echo $BUILD | awk '{print $1}')
-    FLAGS=$(echo $BUILD | cut -d' ' -f2-)
-    echo "Building FFTW: $TARGET"
-    cd $FFTWSRC
-    ./configure --disable-doc --prefix=$SRCDIR/$TARGET $FLAGS CC=$CC F77=$F77 CFLAGS="$CFLAGS" FFLAGS="$FFLAGS"
-    make clean
-    make -j
-    make install
-    cd $SRCDIR
-done
+# with omp enabled
+cd $FFTWSRC
+eval "./configure --disable-doc --prefix=$SRCDIR/fftw-omp --enable-openmp $COMPILER_OPTS"
+make clean
+make
+make install
+cd $SRCDIR
 
-# =========================
-#  LIS build
-# =========================
+# serial (without omp)
+cd $FFTWSRC
+eval "./configure --disable-doc --prefix=$SRCDIR/fftw-serial $COMPILER_OPTS"
+make clean
+make
+make install
+cd $SRCDIR
+
+### LIS ###
+
+SRCDIR=$PWD
 LISSRC=lis-2.1.6
 
-for BUILD in "lis-omp --enable-omp" "lis-serial"; do
-    TARGET=$(echo $BUILD | awk '{print $1}')
-    FLAGS=$(echo $BUILD | cut -d' ' -f2-)
-    echo "Building LIS: $TARGET"
-    cd $LISSRC
-    ./configure --prefix=$SRCDIR/$TARGET --enable-f90 $FLAGS CC=$CC F77=$F77 CFLAGS="$CFLAGS" FFLAGS="$FFLAGS" LDFLAGS="$LDFLAGS"
-    make clean
-    make -j
-    make install
-    cd $SRCDIR
-done
+# with omp enabled
+cd $LISSRC
+eval "./configure --prefix=$SRCDIR/lis-omp --enable-f90 --enable-omp $COMPILER_OPTS"
+make clean
+make
+make install
+cd $SRCDIR
 
-# =========================
-#  Check
-# =========================
+# serial (without omp)
+cd $LISSRC
+eval "./configure --prefix=$SRCDIR/lis-serial --enable-f90 $COMPILER_OPTS"
+make clean
+make
+make install
+cd $SRCDIR
+
 echo ""
-echo "All libraries compiled."
-echo "Running check script..."
+echo ""
 ./check.sh
 echo ""
-

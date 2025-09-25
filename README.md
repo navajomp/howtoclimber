@@ -101,7 +101,10 @@ Compiling the libraries needed for `utils` first.\
 Install `fesm-utils` and go into the directory.
 ```shell
 cd src/utils
+
+# obtain the files
 git clone https://github.com/fesmc/fesm-utils.git
+
 cd fesm-utils
 ```
 \
@@ -109,7 +112,7 @@ Modify the config file for our needs. The file is already available here, copy i
 ```shell
 cp howtoclimber/install_gfortran.sh install_gfortran.sh
 ```
-Adjust your `howtoclimber` path as required.\
+Adjust your `howtoclimber` path as required. Also, the line 12 of this installation file reads `COMPILER_OPTS="CC=gcc-15 CXX=g++-15 FC=gfortran-15 F77=gfortran-15"`. You may probably have to modify the version number of your compilers here before proceeding.
 \
 Now, run the python script.
 ```shell
@@ -118,9 +121,14 @@ Now, run the python script.
 If you see 4 different paths listed in the end, the libraries are compiled!\
 \
 On to compiling `utils`
-```
+```shell
+# go to the utils directory
 cd utils
+
+# copy the makefile
 cp howtoclimber/config1 config/myconfig
+
+# make and compile
 python3 config.py config/myconfig
 make clean
 make fesmutils-static openmp=1
@@ -139,6 +147,7 @@ cd coordinates
 # Copy the configuration file.
 cp howtoclimber/config2.sh config/config2.sh
 
+# make and compile
 python3 config.py config/config2.sh
 make clean
 make coord-static openmp=1
@@ -146,3 +155,8 @@ make coord-static openmp=1
 Adjust your `howtoclimber` path as required.\
 \
 If you get `libcoordinates/include/libcoordinates.a is ready.`, the compilation is successful!
+
+---
+
+## Compile `climber-x-lite`
+
