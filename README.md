@@ -170,6 +170,10 @@ cd ../../..
 # Copy the makefile
 cp howtoclimber/config3 config/myconfig
 ```
+
+Adjust your `howtoclimber` path as required.\
+\
+
 Final step!
 ```shell
 # make and compile
