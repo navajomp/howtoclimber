@@ -8,6 +8,7 @@ Note: to be used only as a course-aid, not associated with climber-x development
 
 Clone the `howtoclimber` gihub for instructions and compilation files.
 ```shell
+cd ~
 https://github.com/navajomp/howtoclimber.git
 ```
 
@@ -60,7 +61,7 @@ pkg-config --libs netcdf-fortran
 
 A test program to check if NetCDF is properly installed:
 ```shell
-cd howtoclimber
+cd ~/howtoclimber
 ./test-nc.sh
 ```
 You should get a PASSED message.
@@ -73,6 +74,7 @@ Now we obtain the model source code and input files.\
 \
 Create a directory for the coursework.
 ```shell
+cd ~
 mkdir nmcs
 cd nmcs
 ```
@@ -110,7 +112,7 @@ cd fesm-utils
 \
 Modify the config file for our needs. The file is already available here, copy it to the model directory.
 ```shell
-cp howtoclimber/install_gfortran.sh install_gfortran.sh
+cp ~/howtoclimber/install_gfortran.sh install_gfortran.sh
 ```
 Adjust your `howtoclimber` path as required. Also, the line 12 of this installation file reads `COMPILER_OPTS="CC=gcc-15 CXX=g++-15 FC=gfortran-15 F77=gfortran-15"`. You may probably have to modify the version number of your compilers here before proceeding.
 \
@@ -126,7 +128,7 @@ On to compiling `utils`
 cd utils
 
 # copy the makefile
-cp howtoclimber/config1 config/myconfig
+cp ~/howtoclimber/config1 config/myconfig
 
 # make and compile
 python3 config.py config/myconfig
@@ -149,7 +151,7 @@ git clone https://github.com/fesmc/coordinates.git
 cd coordinates
 
 # Copy the configuration file.
-cp howtoclimber/config2 config/myconfig
+cp ~/howtoclimber/config2 config/myconfig
 
 # make and compile
 python3 config.py config/myconfig
@@ -172,7 +174,7 @@ Get back to the model directory, and copy the configuration file.
 cd ../../..
 
 # Copy the makefile and make
-cp howtoclimber/config3 config/myconfig
+cp ~/howtoclimber/config3 config/myconfig
 python3 config.py config/myconfig 
 ```
 
@@ -182,11 +184,13 @@ Before compiling the model, a few files need to replaced (because of older Fortr
 \
 Replace the follwing files in your model source directory by copying the modified files from `howtoclimber`.
 ```shell
-cp howtoclimber/ocn_out.f90 src/ocn/ocn_out.f90
-cp howtoclimber/sic_out.f90 src/sic/sic_out.f90
-cp howtoclimber/lnd_params.f90 src/lnd/lnd_params.f90
-cp howtoclimber/Makefile_climber.mk config/Makefile_climber.mk
+cp ~/howtoclimber/ocn_out.f90 src/ocn/ocn_out.f90
+cp ~/howtoclimber/sic_out.f90 src/sic/sic_out.f90
+cp ~/howtoclimber/lnd_params.f90 src/lnd/lnd_params.f90
+cp ~/howtoclimber/Makefile_climber.mk config/Makefile_climber.mk
 ```
+Adjust your `howtoclimber` path as required.\
+\
 Final step!
 ```shell
 # compile 
