@@ -6,21 +6,31 @@ Note: to be used only as a course-aid, not associated with climber-x development
 
 # Getting started
 
+Clone the `howtoclimber` gihub for instructions and compilation files.\
+```shell
+https://github.com/navajomp/howtoclimber.git
+```
+
+Make not of the location of the `howtoclimber` directory.\
+
 **INSTALLING COMPILERS**
 
 On mac
 
-# Install Homebrew if not already installed
+Install Homebrew if not already installed\
+```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-# Install GNU compilers (gfortran comes with gcc)
+```
+Install GNU compilers (gfortran comes with gcc)\
+```shell
 brew install gcc
-
-# Install NetCDF (C + Fortran)
+```
+Install NetCDF (C + Fortran)\
+```shell
 brew install netcdf netcdf-fortran
-
-On Ubuntu (WSL if you have Windows)
-
+```
+On Ubuntu (WSL if you have Windows)\
+```shell
 # Update package lists
 sudo apt update
 
@@ -29,7 +39,7 @@ sudo apt install -y gfortran build-essential
 
 # Install NetCDF (C + Fortran)
 sudo apt install -y libnetcdf-dev libnetcdff-dev
-
+```
 **Verify the installations**\
 \
 Fortran
