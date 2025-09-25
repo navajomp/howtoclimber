@@ -6,7 +6,7 @@ Note: to be used only as a course-aid, not associated with climber-x development
 
 ## Getting started
 
-Clone the `howtoclimber` gihub for instructions and compilation files.
+Clone the `howtoclimber` github repository for compilation files.
 ```shell
 cd ~
 https://github.com/navajomp/howtoclimber.git
