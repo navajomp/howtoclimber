@@ -43,7 +43,6 @@ sudo apt install -y gfortran build-essential
 sudo apt install -y libnetcdf-dev libnetcdff-dev
 ```
 **Verify the installations**
-\
 ```shell
 # Fortran
 gfortran --version
@@ -65,8 +64,7 @@ cd howtoclimber
 ./test-nc.sh
 ```
 You should get a PASSED message.\
-\
+
 ---
 
-
-
+asdf
