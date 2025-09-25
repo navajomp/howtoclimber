@@ -173,6 +173,10 @@ cp howtoclimber/config3 config/myconfig
 
 Adjust your `howtoclimber` path as required.\
 \
+Before compiling the model, some files need to replaced (because of older Fortran code incompatibility with newer compilers). Replace the follwing files in your model source directory by copying the modified files from `howtocliber`.
+```shell
+cp 
+```
 Final step!
 ```shell
 # make and compile

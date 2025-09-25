@@ -1,45 +1,71 @@
-### Compiler #####################
-FC  = $(CONDA_PREFIX)/bin/gfortran
+# Detect operating system
+UNAME_S := $(shell uname -s)
 
-### Library locations ############
+ifeq ($(UNAME_S),Darwin)
+    # macOS configuration
+    ### Compiler #####################
+    FC = gfortran-15
 
-# NetCDF (from Conda environment)
-NC_CROOT = $(CONDA_PREFIX)
-NC_FROOT = $(CONDA_PREFIX)
-INC_NC  = -I$(NC_FROOT)/include
-LIB_NC  = -L$(NC_FROOT)/lib -lnetcdff -L$(NC_CROOT)/lib -lnetcdf
+    ### Library locations ############
+    NC_CROOT = /opt/homebrew/opt/netcdf
+    NC_FROOT = /opt/homebrew/opt/netcdf-fortran
+    INC_NC  = -I$(NC_FROOT)/include -I$(NC_CROOT)/include
+    LIB_NC  = -L$(NC_FROOT)/lib -lnetcdff -L$(NC_CROOT)/lib -lnetcdf
+else
+    # Linux configuration
+    ### Compiler #####################
+    FC = gfortran
+
+    ### Library locations ############
+    NC_CROOT = /usr
+    NC_FROOT = /usr
+    INC_NC  = -I$(NC_FROOT)/include
+    LIB_NC  = -L$(NC_FROOT)/lib -lnetcdff -L$(NC_CROOT)/lib -lnetcdf
+endif
 
 # coordinates
 COORDROOT = src/utils/coordinates
-INC_COORD = -I$(COORDROOT)/libcoordinates/include
-LIB_COORD = -L$(COORDROOT)/libcoordinates/include -lcoordinates
+INC_COORD = -I${COORDROOT}/libcoordinates/include
+LIB_COORD = -L${COORDROOT}/libcoordinates/include -lcoordinates
 
 # FESM-UTILS
-FESMUTILSROOT = src/utils/fesm-utils/utils
-INC_FESMUTILS = -I$(FESMUTILSROOT)/include-serial
-LIB_FESMUTILS = -L$(FESMUTILSROOT)/include-serial -lfesmutils
+FESMUTILSROOT=src/utils/fesm-utils/utils
+INC_FESMUTILS = -I${FESMUTILSROOT}/include-serial
+LIB_FESMUTILS = -L${FESMUTILSROOT}/include-serial -lfesmutils
 
 # FFTW
 FFTWROOT = src/utils/fesm-utils/fftw-omp
-INC_FFTW = -I$(FFTWROOT)/include
-LIB_FFTW = -L$(FFTWROOT)/lib -lfftw3
+INC_FFTW = -I${FFTWROOT}/include
+#LIB_FFTW = -L${FFTWROOT}/lib -lfftw3_omp -lfftw3 -lfftw3f_omp -lfftw3f
+LIB_FFTW = -L${FFTWROOT}/lib -lfftw3
+
+# LIS
+LISROOT = src/utils/fesm-utils/lis-omp
+INC_LIS = -I${LISROOT}/include
+LIB_LIS = -L${LISROOT}/lib/ -llis
+
+# Yelmo
+YELMOROOT = src/yelmo
+INC_YELMO = -I${YELMOROOT}/libyelmo/include
+LIB_YELMO = -L${YELMOROOT}/libyelmo/include -lyelmo
 
 # VILMA
 VILMAROOT = src/vilma
-INC_VILMA = -I$(VILMAROOT)/include
-LIB_VILMA = $(VILMAROOT)/lib/vega_pism.a
+INC_VILMA = -I${VILMAROOT}/include
+LIB_VILMA = ${VILMAROOT}/lib/vega_pism.a
 
 ### Compiler options #############
+
 CPPFLAGS     = -cpp
 
 DFLAGS_NODEBUG = -Ofast
+#DFLAGS_DEBUG   = -C  -fp-model precise -traceback -ftrapuv -fpe0 -check all -init=snan,arrays -warn -debug extended -gen-interfaces -warn interfaces -check arg_temp_created
 DFLAGS_DEBUG   = -w -g -p -ggdb -ffpe-trap=invalid,zero,overflow,underflow -fbacktrace -fcheck=all
 DFLAGS_PROFILE = -O3 -pg -g
 
-FFLAGS_FULL = -I$(objdir) -J$(objdir) -L$(objdir) $(INC_NC) $(INC_FESMUTILS) $(INC_COORD) $(INC_FFTW) $(INC_VILMA)
+FFLAGS_FULL = -I$(objdir) -J$(objdir) -L$(objdir) $(INC_NC) $(INC_FESMUTILS) $(INC_LIS) $(INC_COORD) $(INC_YELMO) $(INC_VILMA) $(INC_FFTW)
 FFLAGS_CLIM = -I$(objdir) -J$(objdir) -L$(objdir) $(INC_NC) $(INC_FESMUTILS) $(INC_COORD) $(INC_FFTW)
 FFLAGS_OPENMP  = -Wopenmp
 
-LFLAGS_FULL  = $(LIB_NC) $(LIB_COORD) $(LIB_FESMUTILS) $(LIB_VILMA) $(LIB_FFTW)
+LFLAGS_FULL  = $(LIB_NC) $(LIB_COORD) $(LIB_FESMUTILS) $(LIB_LIS) $(LIB_YELMO) $(LIB_VILMA) $(LIB_FFTW)
 LFLAGS_CLIM  = $(LIB_NC) $(LIB_COORD) $(LIB_FESMUTILS) $(LIB_FFTW)
-
