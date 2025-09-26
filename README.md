@@ -114,7 +114,7 @@ Modify the config file for our needs. The file is already available here, copy i
 ```shell
 cp ~/howtoclimber/install_gfortran.sh install_gfortran.sh
 ```
-Adjust your `howtoclimber` path as required. Also, the line 12 of this installation file reads `COMPILER_OPTS="CC=gcc-15 CXX=g++-15 FC=gfortran-15 F77=gfortran-15"`. You may probably have to modify the version number of your compilers here before proceeding.
+Adjust your `howtoclimber` path as required. Also, the line 12 of this installation file reads `COMPILER_OPTS="CC=gcc CXX=g++ FC=gfortran F77=gfortran"`. You may probably have to add the version number of your compilers (eg., gcc-15, g++-15 etc) here before proceeding.
 \
 Now, run the python script.
 ```shell

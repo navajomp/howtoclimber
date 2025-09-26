@@ -31,7 +31,7 @@ EOF
 
 if [[ $(uname)=="Darwin"* ]]; then
 	echo $(uname)
-	gfortran test_netcdf.f90 -I/opt/homebrew/Cellar/netcdf-fortran/4.6.2/include -I/opt/homebrew/Cellar/netcdf/4.9.3/include -L/opt/homebrew/Cellar/netcdf-fortran/4.6.2/lib -L/opt/homebrew/Cellar/netcdf/4.9.3/lib -lnetcdff -lnetcdf -o test_netcdf
+	gfortran test_netcdf.f90 -I/opt/homebrew/Cellar/netcdf-fortran/ -I/opt/homebrew/Cellar/netcdf/ -L/opt/homebrew/Cellar/netcdf-fortran/ -L/opt/homebrew/Cellar/netcdf/ -lnetcdff -lnetcdf -o test_netcdf
 
 else
 	 gfortran test_netcdf.f90 -I/usr/include -L/usr/lib -lnetcdff -lnetcdf -o test_netcdf
