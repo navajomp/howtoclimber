@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-echo "🔧 Compiling NetCDF test program..."
+echo "Compiling NetCDF test program..."
 
 # Write the Fortran source
 cat > test_netcdf.f90 <<'EOF'
@@ -25,12 +25,17 @@ program test_netcdf
      stop 1
   endif
 
-  print *, "🎉 NetCDF test PASSED — Ready to climb!"
+  print *, "NetCDF test PASSED — Ready to climb!"
 end program test_netcdf
 EOF
 
-# Compile using gfortran from conda/mamba environment
-gfortran test_netcdf.f90 -I${CONDA_PREFIX}/include -L${CONDA_PREFIX}/lib -lnetcdff -lnetcdf -o test_netcdf
+if [[ $(uname)=="Darwin"* ]]; then
+	echo $(uname)
+	gfortran test_netcdf.f90 -I/opt/homebrew/Cellar/netcdf-fortran/4.6.2/include -I/opt/homebrew/Cellar/netcdf/4.9.3/include -L/opt/homebrew/Cellar/netcdf-fortran/4.6.2/lib -L/opt/homebrew/Cellar/netcdf/4.9.3/lib -lnetcdff -lnetcdf -o test_netcdf
+
+else
+	 gfortran test_netcdf.f90 -I/usr/include -L/usr/lib -lnetcdff -lnetcdf -o test_netcdf
+fi
 
 # Run the test
 ./test_netcdf
