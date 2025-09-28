@@ -9,7 +9,7 @@ Note: to be used only as a course-aid, not associated with climber-x development
 Clone the `howtoclimber` github repository for compilation files.
 ```shell
 cd ~
-https://github.com/navajomp/howtoclimber.git
+t clone https://github.com/navajomp/howtoclimber.git
 ```
 
 Make note of the location of the `howtoclimber` directory.
@@ -199,4 +199,16 @@ make climber-clim
 ```
 
 Successful compilations will end with the message `climber.x is ready.`!
+
+---
+
+If you get the `fopenmp` error, start by pulling the latest fiels:
+```shell
+cd ~/howtoclimber
+git pull
+cd ~/nmcs/climber-x-lite/
+```
+
+Then repeat the last set of steps (MODEL COMPILATION).
+
 
