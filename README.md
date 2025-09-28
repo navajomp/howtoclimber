@@ -209,5 +209,15 @@ git pull
 cd ~/nmcs/climber-x-lite/
 ```
 
-Then repeat the last set of steps (MODEL COMPILATION).
+Then repeat the last set of steps.
+```shell
+# Copy the makefile and make
+cp ~/howtoclimber/config3 config/myconfig
+python3 config.py config/myconfig 
+
+# compile 
+make cleanall
+make climber-clim
+```
+```
 
