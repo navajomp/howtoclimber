@@ -1,4 +1,3 @@
-navajo in ~/nmcs/climber-x-lite  cat config/myconfig 
 # Detect operating system
 UNAME_S := $(shell uname -s)
 
