@@ -144,7 +144,7 @@ If everything goes well, you will get `include-omp/libfesmutils.a is ready.`\
 Installing the `coordinates` package.
 ```shell
 # go back to the src/utils directory
-cd../..
+cd ../..
 
 # obtain the library
 git clone https://github.com/fesmc/coordinates.git
